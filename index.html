@@ -7,6 +7,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lab 9</title>
 
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+<script>
+  window.TrackJS && TrackJS.install({ 
+    token: "93ca4a8f0e4d45389ea53502d5c8206f"
+    // for more configuration options, see https://docs.trackjs.com
+  });
+</script>
+                        
+
   <style>
     button {
       margin: 3px;
@@ -69,21 +78,21 @@
     </form>
 
     <section id="error-btns">
-      <button>Console Log</button>
-      <button>Console Error</button>
-      <button>Console Count</button>
-      <button>Console Warn</button>
-      <button>Console Assert</button>
-      <button>Console Clear</button>
-      <button>Console Dir</button>
-      <button>Console dirxml</button>
-      <button>Console Group Start</button>
-      <button>Console Group End</button>
-      <button>Console Table</button>
-      <button>Start Timer</button>
-      <button>End Timer</button>
-      <button>Console Trace</button>
-      <button>Trigger a Global Error</button>
+      <button onclick = "log()">Console Log</button>
+      <button onclick = "error()">Console Error</button>
+      <button onclick = "count()">Console Count</button>
+      <button onclick = "warn()">Console Warn</button>
+      <button onclick = "assert()">Console Assert</button>
+      <button onclick = "clear()">Console Clear</button>
+      <button onclick = "dir()">Console Dir</button>
+      <button onclick = "dirxml()">Console dirxml</button>
+      <button onclick = "groupStart()">Console Group Start</button>
+      <button onclick = "groupEnd()">Console Group End</button>
+      <button onclick = "table()">Console Table</button>
+      <button onclick = "sTimer()">Start Timer</button>
+      <button onclick = "eTimer()">End Timer</button>
+      <button onclick = "trace()">Console Trace</button>
+      <button onclick = "globalError()">Trigger a Global Error</button>
     </section>
   </main>
 
@@ -102,7 +111,90 @@
 
     // Start your code here
     // You may move this JS to another file if you wish
+    function log(){
+      console.log("log button was pushed");
+    }
+    function error(){
+      console.error("error");
+    }
+    function count(){
+      console.count(errorBtns);
+    }
+    function warn(){
+      console.warn("warning");
+    }
+    function assert(){
+    const x = 2;
+    const y = 1;
+    const reason = 'x is expected to be less than y';
+    console.assert(x < y, {x, y, reason});
+    } 
+    function clear(){
+      console.clear();
+    } 
+    function dir(){
+      console.dir(document.head);
+    } 
+    function dirxml(){
+      console.dirxml(document);
+    } 
+    function groupStart(){
+      const label = "label"
+      console.group(label);
+      console.info('1');
+      console.info('2');
+      console.info('3');
+    } 
+    function groupEnd(){
+      const label = "label"
+      console.groupEnd(label);
+    }
+    function table(){
+      console.warn(errorBtns);
+    }
+    function sTimer(){
+      console.time("timer");
+    }
+    function eTimer(){
+      console.timeEnd("timer");
+    }
+    function trace(){
+     console.trace();
+    }
+    function globalError(){
+      //console.warn("warning");
+    }
+    try {
+  console.log( 'try' );
+  if (confirm('Make an error?')) BAD_CODE();
+} catch (err) {
+  console.log( 'catch' );
+} finally {
+  console.log( 'finally' );
+}
+let message = "custom error here";
+class CustomError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "CustomError"; 
+  }
+}
+function test() {
+  throw new CustomError("Whoops!");
+}
+try {
+  test();
+} catch(err) {
+  alert(err.message); // Whoops!
+  alert(err.name); // ValidationError
+  alert(err.stack); // a list of nested calls with line numbers for each
+}
+TrackJS.track('Testing TrackJS!');
+                        
+let n = 0;
+if (n < 1) {
+    throw new Error(" n must not be less than 1");
+  }
   </script>
 </body>
-
 </html>
